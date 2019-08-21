@@ -82,14 +82,12 @@ const navigations:Array<NavItem> = [
 let PATH_PREFIX = '/admin';
 let ContextPath = '';
 
-if (process.env.NODE_ENV === 'production') {
-    ContextPath = '/amis-admin'
-}
-
+// if (process.env.NODE_ENV === 'production') {
+//     ContextPath = '/amis-admin'
+// }
 
 function navigations2route(pathPrefix = PATH_PREFIX) {
     let routes:Array<JSX.Element> = [];
-
     navigations.forEach(root => {
         root.children && mapTree(root.children, (item:any) => {
             if (item.path && item.component) {
@@ -113,7 +111,6 @@ function navigations2route(pathPrefix = PATH_PREFIX) {
             }
         });
     });
-
     return routes;
 }
 
@@ -123,13 +120,12 @@ function isActive(link: any, location: any) {
         exact: true,
         strict: true
     });
-
     return !!ret;
 }
 
 export interface AdminProps extends RouteComponentProps<any>  {
     store: IMainStore
-};
+}
 
 @inject("store")
 @observer
@@ -196,7 +192,7 @@ export default class Admin extends React.Component<AdminProps> {
                                 key="expand-toggle"
                                 className={cx('AsideNav-itemArrow')}
                                 onClick={(e) => toggleExpand(link, e)}
-                            ></span>
+                            />
                         );
                     }
     
@@ -212,7 +208,7 @@ export default class Admin extends React.Component<AdminProps> {
                         children.push(
                             <i key="icon" className={cx(`AsideNav-itemIcon`, link.children ? 'fa fa-folder' : 'fa fa-info')} />
                         )
-                    };
+                    }
     
                     children.push(
                         <span key="label" className={cx('AsideNav-itemLabel')}>{link.label}</span>

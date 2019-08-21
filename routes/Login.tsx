@@ -2,19 +2,19 @@ import filter = require('lodash/filter');
 import * as React from 'react';
 import AMisRenderer from '../components/AMisRenderer';
 import { inject, observer } from 'mobx-react';
-import { IMainStore } from '../stores/index';
+import { IMainStore } from '../stores';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 let ContextPath = '';
 
 // gh-pages 环境时
-if (process.env.NODE_ENV === 'production') {
-    ContextPath = '/amis-admin'
-}
+// if (process.env.NODE_ENV === 'production') {
+//     ContextPath = '/amis-admin'
+// }
 
 interface LoginProps extends RouteComponentProps<any> {
     store: IMainStore;
-};
+}
 
 const schema = {
     type: 'form',
@@ -34,12 +34,12 @@ const schema = {
                                 name: 'username',
                                 children: (props:any) => (
                                     <div className="list-group-item">
-                                        <input 
+                                        <input
                                             placeholder="用户名"
-                                            type="text" 
-                                            className="form-control no-shadow no-border" 
-                                            value={props.value || ''} 
-                                            onChange={(e) => props.onChange(e.currentTarget.value)} 
+                                            type="text"
+                                            className="form-control no-shadow no-border"
+                                            value={props.value || ''}
+                                            onChange={(e) => props.onChange(e.currentTarget.value)}
                                         />
                                     </div>
                                 )
@@ -48,12 +48,12 @@ const schema = {
                                 name: 'password',
                                 children: (props:any) => (
                                     <div className="list-group-item">
-                                        <input 
-                                            placeholder="密码"    
-                                            type="password" 
-                                            className="form-control no-shadow no-border" 
-                                            value={props.value || ''} 
-                                            onChange={(e) => props.onChange(e.currentTarget.value)} 
+                                        <input
+                                            placeholder="密码"
+                                            type="password"
+                                            className="form-control no-shadow no-border"
+                                            value={props.value || ''}
+                                            onChange={(e) => props.onChange(e.currentTarget.value)}
                                         />
                                     </div>
                                 )
@@ -74,22 +74,21 @@ const schema = {
 };
 
 @inject("store")
-@withRouter
+// @withRouter
 @observer
 export default class LoginRoute extends React.Component<LoginProps> {
     handleFormSaved = (value:any) => {
         const store = this.props.store;
         const history = this.props.history;
-        
+
         store.user.login(value.username);
-        history.replace(`${ContextPath}/admin`)
-    }
-    
+        history.replace(`${ContextPath}/admin`);
+    };
     render() {
         return (
             <div className="app app-header-fixed ">
                 <div className="container w-xxl w-auto-xs">
-                    <a className="block m-t-xxl m-b-xl text-center text-2x">XXX 系统登录</a>
+                    <a className="block m-t-xxl m-b-xl text-center text-2x">后台 系统登录</a>
                     <AMisRenderer
                         onFinished={this.handleFormSaved}
                         schema={schema}

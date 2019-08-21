@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
     render as renderSchema
 } from 'amis';
-import { IMainStore } from '../store';
+import { IMainStore } from '../stores';
 import { getEnv } from 'mobx-state-tree';
 import { inject, observer } from 'mobx-react';
 import { withRouter, RouteComponentProps } from 'react-router';
@@ -12,17 +12,17 @@ import { Action } from 'amis/lib/types';
 interface RendererProps {
     schema?:any;
     [propName:string]:any;
-};
+}
 
 @inject("store")
-@withRouter
+// @withRouter
 @observer
 export default class AMisRenderer extends React.Component<RendererProps> {
     env:any = null;
     
     handleAction = (e:any, action:Action) => {
         this.env.alert(`没有识别的动作：${JSON.stringify(action)}`);
-    }
+    };
 
     constructor(props:RendererProps) {
         super(props);
@@ -68,7 +68,7 @@ export default class AMisRenderer extends React.Component<RendererProps> {
                 pathname = paths.concat(pathname).join('/');
             }
             return pathname + search + hash;
-        }
+        };
 
         // todo，这个过程可以 cache
         this.env = {

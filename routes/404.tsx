@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
-import {
-    NotFound
-} from 'amis'
+import { NotFound } from 'amis'
 
 export default () => (
     <NotFound

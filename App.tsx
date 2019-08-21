@@ -1,23 +1,14 @@
 import * as React from 'react';
-import { Provider } from "mobx-react";
-import {
-    toast,
-    alert,
-    confirm
-} from 'amis';
 import * as axios from 'axios';
-import { MainStore } from './stores/index';
 import * as copy from 'copy-to-clipboard';
+import { Provider } from "mobx-react";
+import { toast, alert, confirm } from 'amis';
+import { MainStore } from './stores';
 import RootRoute from './routes/index';
 
 export default function():JSX.Element {
     const store = (window as any).store = MainStore.create({}, {
-        fetcher: ({
-            url,
-            method,
-            data,
-            config
-        }: any) => {
+        fetcher: ({url, method, data, config }: any) => {
             config = config || {};
             config.headers = config.headers || {};
             config.withCredentials = true;
@@ -41,9 +32,11 @@ export default function():JSX.Element {
                 config.headers['Content-Type'] = 'application/json';
             }
 
+            // console.log({url, data, config});
+
             return (axios as any)[method](url, data, config);
         },
-        isCancel: (e:any) => axios.isCancel(e),
+        isCancel: (e:any) => (axios as any).isCancel(e),
         notify: (type: 'success' | 'error' | 'info', msg: string) => {
             toast[type] ? toast[type](msg, type === 'error' ? '系统错误' : '系统消息') : console.warn('[Notify]', type, msg);
             console.log('[notify]', type, msg);
@@ -60,6 +53,7 @@ export default function():JSX.Element {
     // 正式环境会部署在 gh-pages 上，所以用纯前端 api mock
     // 如果你要用于自己的项目，请删掉这段代码
     if (process.env.NODE_ENV === 'production') {
+        // @ts-ignore
         require(['./mock/axiosMock'], (mock:any) => mock.init());
     }
 

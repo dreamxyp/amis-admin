@@ -2,10 +2,10 @@ import * as React from 'react';
 
 interface UserInfoProps {
     user: any;
-};
+}
 interface UserInfoState {
     open?: boolean;
-};
+}
 export default class UserInfo extends React.Component<UserInfoProps, UserInfoState> {
     constructor(props: UserInfoProps) {
         super(props);
@@ -15,32 +15,23 @@ export default class UserInfo extends React.Component<UserInfoProps, UserInfoSta
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.logout = this.logout.bind(this);
-    }
-
-    static defaultProps = {
     };
+
+    static defaultProps = { };
     open() {
-        this.setState({
-            open: true
-        });
+        this.setState({open: true});
     }
     close() {
-        this.setState({
-            open: false
-        });
+        this.setState({open: false});
     }
     handleClickOutside() {
         this.close();
     }
-
-    logout() {
-        
-    }
+    logout() { }
 
     render() {
         const user = this.props.user;
         const open = this.state.open;
-
         return (
             <div className="dropdown">
                 <span
