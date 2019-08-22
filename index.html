@@ -13,7 +13,7 @@
         href="bootstrap/dist/css/bootstrap.css">
     <!--DEPENDENCIES_INJECT_PLACEHOLDER-->
     <link rel="stylesheet" title="default" href="amis/lib/themes/default.css">
-    <link rel="stylesheet" href="./scss/style.scss">
+    <link rel="stylesheet" href="src/css/style.scss">
     <style>
         .app-wrapper {
             position: relative;
@@ -24,10 +24,10 @@
 </head>
 <body>
     <div id="root" class="app-wrapper"></div>
-    <script src="./mod.js"></script>
+    <script src="src/utils/mod.js"></script>
     <script type="text/javascript">
     /* @require ./index.tsx fis 用法，标记为同步依赖，将依赖用 <script> 打在 html 中加载 */
-    require(['./index.tsx'], function (app) {
+    require(['./src'], function (app) {
         // var initialState = {};
         app.bootstrap(document.getElementById('root')/*, initialState*/);
     });

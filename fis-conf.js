@@ -226,7 +226,7 @@ ghPages.match('*', {
     deploy: [
         fis.plugin('skip-packed'),
         fis.plugin('local-deliver', {
-            to: './gh-pages'
+            to: './release'
         })
     ]
 });
